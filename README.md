@@ -1,11 +1,13 @@
+[TOC]
 # FOM - Modul Algorithmen und Datenstrukturen
 Übungen parallel zum Modul
-[TOC]
-##Datenstrukturen
+
+## Datenstrukturen
 - Queue
 - Stack
 - Linked List
 - Hashtable
 - Directed Tree
-##Sortieralgorithmen
+
+## Sortieralgorithmen
 - Insertionsort
