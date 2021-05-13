@@ -1,17 +1,17 @@
-def insertion_sort(collection, print_state=True):
+def insertion_sort(collection, print_probe=True):
     if not (type(collection) in (list, tuple, set, frozenset)):
         raise ValueError
 
-    for j in range(1, len(collection)):
-        key = collection[j]
-        i = j - 1
+    for probe in range(1, len(collection)):
+        actual_key = collection[probe]
+        index = probe - 1
 
-        while i >= 0 and collection[i] > key:
-            collection[i + 1] = collection[i]
-            i -= 1  # Zurück an Anfang des Teilsortierten Arrays
-        collection[i + 1] = key
-        if print_state:
-            print(j, collection)
+        while index >= 0 and collection[index] > actual_key:
+            collection[index + 1] = collection[index]
+            index -= 1  # Zurück an Anfang des Teilsortierten Arrays
+        collection[index + 1] = actual_key
+        if print_probe:
+            print(probe, collection)
 
     return collection
 
