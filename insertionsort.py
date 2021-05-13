@@ -1,4 +1,4 @@
-def insertion_sort(collection):
+def insertion_sort(collection, print_state=True):
     if not (type(collection) in (list, tuple, set, frozenset)):
         raise ValueError
 
@@ -10,7 +10,8 @@ def insertion_sort(collection):
             collection[i + 1] = collection[i]
             i -= 1  # Zurück an Anfang des Teilsortierten Arrays
         collection[i + 1] = key
-        print(j, collection)
+        if print_state:
+            print(j, collection)
 
     return collection
 
