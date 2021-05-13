@@ -2,15 +2,16 @@ def insertion_sort(collection, print_probe=True, asc=True):
     if not (type(collection) in (list, tuple, set, frozenset)):
         raise ValueError
 
-    for probe in range(1, len(collection)):
-        actual_key = collection[probe]
-        index = probe - 1
-        sort_statement = is_bigger if asc else is_smaller
+    for probe in range(1, len(collection)):  # Für Anzahl Versuche in Mengengröße
+        actual_key = collection[probe]  # aktuellen Schlüssel durch Versuchanzahl ziehen
+        index = probe - 1  # Index berechnen
+        sort_statement = is_bigger if asc else is_smaller  # Fallunterscheidung Auf-, oder Absteigend
 
-        while index >= 0 and sort_statement(actual_key, collection, index):
-            collection[index + 1] = collection[index]
+        while index >= 0 and sort_statement(
+                actual_key, collection, index):  # Solange Index > 0 und Zahl in Menge größer als Schlüssel
+            collection[index + 1] = collection[index]  # Zahl in Menge eins nach oben setzen
             index -= 1  # Zurück an Anfang des Teilsortierten Arrays
-        collection[index + 1] = actual_key
+        collection[index + 1] = actual_key  # Schlüssel in Menge an Stelle des Indexes +1 setzen
         if print_probe:
             print(probe, collection)
 
