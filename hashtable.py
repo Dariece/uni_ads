@@ -44,11 +44,11 @@ class DirectAddressTable:
 
 def char_to_int(key):
     return key if isinstance(key, int) else \
-       Integer().addAll(*((ord(s) * (128 ** len(key) - i)) for i, s in enumerate(key))) \
-           if isinstance(key, str) else None
+        None if not isinstance(key, str) else Integer().addAll(*((ord(s) * (128 ** len(key) - i)) for i, s in enumerate(key)))
 
 
 class HashDirectAddressMultiplication:
+    REMOVED = 'ENTFERNT'
 
     def __init__(self, size, keys=None):
         self.payload = dict()
@@ -62,20 +62,23 @@ class HashDirectAddressMultiplication:
         return int(self.size * (key * self.constant % 1))
 
     def hash(self, key, probe=0) -> int:
-        return (self.hash_multiplicate(key) + (probe ** 2 if probe is not 0 else probe)) % self.size
+        return (self.hash_multiplicate(key) + (probe ** 2 if probe != 0 else probe)) % self.size
 
     def insert(self, key) -> int:
         key = char_to_int(key)
         probe = 0
         while probe is not self.size:
             actual_hash = self.hash(key, probe)
-            if self.payload.get(actual_hash) is None:
+            if self.payload.get(actual_hash) is None \
+                    or self.payload[actual_hash] is self.REMOVED:
                 self.payload[actual_hash] = key
                 return actual_hash
             probe += 1
-        print("Overflow")
+        else:
+            print("Overflow")
 
     def search(self, key):
+        key = char_to_int(key)
         probe = 0
         actual_hash = 0
         while self.payload.get(actual_hash) is not None \
@@ -86,6 +89,20 @@ class HashDirectAddressMultiplication:
                 return actual_hash
             probe += 1
         return None
+
+    def delete(self, key):
+        key = char_to_int(key)
+        probe = 0
+        actual_hash = 0
+        while self.payload[actual_hash] is not None \
+                or probe is not self.size:
+            actual_hash = self.hash(key, probe)
+            if self.payload[actual_hash] == key:
+                self.payload[actual_hash] = self.REMOVED
+                return
+            probe += 1
+        else:
+            print("Overflow")
 
 
 def get_max(hashtabelle: dict, max=None):
@@ -112,3 +129,5 @@ hashTable.insert(10)
 hashTable.insert("abc")
 print(hashTable.payload)
 print(hashTable.search(10))
+hashTable.delete("abc")
+print(hashTable.payload)
