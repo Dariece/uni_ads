@@ -5,9 +5,9 @@ def insertion_sort(collection, print_probe=True, asc=True):
     for probe in range(1, len(collection)):
         actual_key = collection[probe]
         index = probe - 1
-        statement = is_bigger if asc else is_smaller
+        sort_statement = is_bigger if asc else is_smaller
 
-        while statement(actual_key, collection, index):
+        while index >= 0 and sort_statement(actual_key, collection, index):
             collection[index + 1] = collection[index]
             index -= 1  # Zurück an Anfang des Teilsortierten Arrays
         collection[index + 1] = actual_key
@@ -18,14 +18,14 @@ def insertion_sort(collection, print_probe=True, asc=True):
 
 
 def is_bigger(actual_key, collection, index):
-    return index >= 0 and collection[index] > actual_key
+    return collection[index] > actual_key
 
 
 def is_smaller(actual_key, collection, index):
-    return index >= 0 and collection[index] < actual_key
+    return collection[index] < actual_key
 
 
 liste = [31, 29, 59, 26, 41, 58]
 print(liste)
-print('asc',insertion_sort(liste))
-print('desc',insertion_sort(liste,asc=False))
+print('asc', insertion_sort(liste))
+print('desc', insertion_sort(liste, asc=False))
