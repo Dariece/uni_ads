@@ -27,4 +27,5 @@ def is_smaller(actual_key, collection, index):
 
 liste = [31, 29, 59, 26, 41, 58]
 print(liste)
-insertion_sort(liste,asc=False)
+print('asc',insertion_sort(liste))
+print('desc',insertion_sort(liste,asc=False))
